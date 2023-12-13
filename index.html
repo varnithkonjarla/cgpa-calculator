@@ -1,0 +1,127 @@
+<html>
+  <style>
+      .button {
+             width: 100px;
+             height: 30px;
+            font-size: 18px;
+            }
+  </style>
+  <body align="center">
+    <img src="kits.png" alt="Image of Kitsw" width="1200" height="200" />
+    <br><br>
+    <form id="form1" align="center">
+    
+      <h2>Enter the Number Of Semesters You have completed:</font></h2> 
+      <input type="number" id="enter" name="enter">
+      <br><br><br>
+      <input type="button" value="submit" onclick="displayValue()" class="button">
+    </form>
+
+    <form id="form2" style="display:none;" align="center">
+      <h3></h3>
+    </form>
+
+    <script>
+      function displayValue() {
+        event.preventDefault();
+        var enter = document.getElementById("enter").value;
+        if (isNaN(enter) || enter < 1) {
+        alert("Please enter a valid number of subjects.");
+        return;
+        }
+       
+        var form1 = document.getElementById("form1");
+        form1.style.display = "none"; // hide the first form
+
+        var form2 = document.getElementById("form2");
+        form2.style.display = "block"; // show the second form
+      var head2 = document.createElement("h3");
+      head2.textContent = "Enter CGPA for Each Semester";
+      form2.appendChild(head2);
+
+        for (var i = 1; i <= enter; i++) {
+            var label = document.createElement("label");
+            label.style.fontSize="20px";
+            label.textContent = "Semester " + i + ": ";
+            label.setAttribute("for", "num" + i);
+            form2.appendChild(label);
+
+            var input = document.createElement("input");
+            input.type = "number";
+            input.id = "num" + i;
+            input.name = "num" + i;
+            form2.appendChild(input);
+
+            var lineBreak = document.createElement("br");
+            form2.appendChild(lineBreak);
+        }
+        var lineBreak4 = document.createElement("br");
+        form2.appendChild(lineBreak4);
+        var lineBreak3 = document.createElement("br");
+        form2.appendChild(lineBreak3);  
+        var rcgpa=document.createElement("label");
+        rcgpa.style.fontSize="20px";
+        rcgpa.textContent="Enter the required CGPA you need : ";
+        rcgpa.setAttribute("id","rcgpa");
+        form2.appendChild(rcgpa);
+        var input1=document.createElement("input");
+        input1.type="number";
+        input1.id="rcgpa1";
+        form2.appendChild(input1);
+        var lineBreak5 = document.createElement("br");
+        form2.appendChild(lineBreak5);
+        var line = document.createElement("br");
+        form2.appendChild(line);
+        var submitbutton=document.createElement("input");
+        submitbutton.type="button";
+        submitbutton.id="submit";
+        submitbutton.value="submit";
+        submitbutton.onclick=calculate;
+        form2.appendChild(submitbutton);
+        var lineBreak1 = document.createElement("br");
+        form2.appendChild(lineBreak1);
+        var lineBreak2 = document.createElement("br");
+        form2.appendChild(lineBreak2);
+      }
+      var a="false";
+            function calculate() {
+             event.preventDefault();
+             if(a=="false"){
+                var enter = parseInt(document.getElementById("enter").value);
+             
+             var sum=0;
+             for (var i=1;i<=enter;i++)
+             {
+              var cgpa=parseFloat(document.getElementById("num"+i).value);
+              sum=sum+cgpa;
+             }
+             div=sum/enter;
+            var k=parseFloat(document.getElementById("rcgpa1").value);
+            const d=enter+1;
+            var b=k*d;
+            var c=b-sum;
+            if(c<=10)
+            {
+            var label = document.createElement("label");
+            label.style.fontSize="20px";
+             label.textContent = "To get required CGPA you need to secure : ";
+             label.setAttribute("id","finalcgpa")
+             form2.appendChild(label);
+             var output = document.createElement("input");
+             output.type="number";
+             output.id = "output";
+             form2.appendChild(output);
+             var final=document.getElementById("output");
+             final.value=c.toFixed(2);
+            }
+            else{
+              var label1 = document.createElement("label");
+             label1.textContent = "You can't reach to your required CGPA ";
+             form2.appendChild(label1);
+            }
+            a=true;
+            }
+         }
+    </script>
+  </body>
+</html>
